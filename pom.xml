@@ -76,6 +76,7 @@
 				<configuration>
 					<links>
 						<link>http://kazocsaba.github.com/matrix/apidocs/</link>
+						<link>http://kazocsaba.github.com/geometry/apidocs/</link>
 					</links>
 				</configuration>
 				<executions>

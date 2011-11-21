@@ -34,7 +34,7 @@ public class LineFitter2 {
 		 * value for this matrix:
 		 * 
 		 *   ( x1  y1 )
-		 *   ( x2  y1 )          T
+		 *   ( x2  y2 )          T
 		 * A=( x3  y3 )         A A=( sum(xi*xi)  sum(xi*yi) )
 		 *   (  ...   )             ( sum(xi*yi)  sum(yi*yi) )
 		 *   ( xn  yn )

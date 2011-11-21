@@ -11,7 +11,20 @@ import java.util.List;
  * @author Kazó Csaba
  */
 public class LineFitting2 {
+	/** Threshold value used for floating-point equality tests. */
 	private static final double EPS=1e-8;
+	
+	/** Private constructor to prevent instantiation. */
+	private LineFitting2() {}
+	
+	/**
+	 * Finds the line that best fits a point set.
+	 * @param points the input point set
+	 * @return the line
+	 * @throws DegenerateCaseException if the fitting could not be performed,
+	 * either because there are less than 2 points or they are in a degenerate
+	 * composition
+	 */
 	public static Line2 fit(List<? extends Vector2> points) throws DegenerateCaseException {
 		/*
 		 * This algorithm first computes the centroid of the point set,

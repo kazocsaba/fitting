@@ -14,7 +14,8 @@ import hu.kazocsaba.math.matrix.immutable.ImmutableMatrixFactory;
 import java.util.List;
 
 /**
- * Algorithm for finding the intersection point of a set of lines.
+ * Algorithm for finding the intersection point of a set of lines. It computes the solution which minimizes the
+ * sum of squares of the distances from the lines.
  * @author Kazó Csaba
  */
 public class LineIntersector {

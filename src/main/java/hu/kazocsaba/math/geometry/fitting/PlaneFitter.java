@@ -9,7 +9,7 @@ import hu.kazocsaba.math.matrix.Vector3;
 import java.util.List;
 
 /**
- * Algorithm for fitting a plane to a set of points.
+ * Algorithm for fitting a plane to a set of points using principle component analysis.
  * @author Kazó Csaba
  */
 public class PlaneFitter {

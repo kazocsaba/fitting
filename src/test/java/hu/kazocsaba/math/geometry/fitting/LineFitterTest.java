@@ -1,10 +1,13 @@
 package hu.kazocsaba.math.geometry.fitting;
 
+import hu.kazocsaba.math.geometry.DegenerateCaseException;
 import hu.kazocsaba.math.matrix.Vector2;
 import java.util.List;
 import hu.kazocsaba.math.geometry.Line2;
+import hu.kazocsaba.math.matrix.MatrixFactory;
 import hu.kazocsaba.math.matrix.immutable.ImmutableMatrixFactory;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,5 +32,10 @@ public class LineFitterTest {
 		
 		assertEquals(1, Math.abs(refLine.getUnitDir().dot(fitLine.getUnitDir())), EPS);
 		assertEquals(0, refLine.distance(fitLine.getPoint()), EPS);
+	}
+	
+	@Test(expected=DegenerateCaseException.class)
+	public void testDegenerate() {
+		LineFitter.fit2(Collections.nCopies(10, MatrixFactory.createVector(2, -4)));
 	}
 }

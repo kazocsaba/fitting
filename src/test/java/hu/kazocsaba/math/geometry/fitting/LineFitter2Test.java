@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author Kazó Csaba
  */
-public class LineFitting2Test {
+public class LineFitter2Test {
 	private static final double EPS=1e-8;
 
 	@Test
@@ -25,7 +25,7 @@ public class LineFitting2Test {
 		List<Vector2> points=new ArrayList<Vector2>(50);
 		for (int i=0; i<50; i++) points.add(refLine.getPointAt(rnd.nextDouble()));
 		
-		Line2 fitLine=LineFitting2.fit(points);
+		Line2 fitLine=LineFitter2.fit(points);
 		
 		assertEquals(1, Math.abs(refLine.getUnitDir().dot(fitLine.getUnitDir())), EPS);
 		assertEquals(0, refLine.distance(fitLine.getPoint()), EPS);

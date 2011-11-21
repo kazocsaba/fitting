@@ -10,12 +10,12 @@ import java.util.List;
  * 2D line fitting algorithm using principal component analysis.
  * @author Kazó Csaba
  */
-public class LineFitting2 {
+public class LineFitter2 {
 	/** Threshold value used for floating-point equality tests. */
 	private static final double EPS=1e-8;
 	
 	/** Private constructor to prevent instantiation. */
-	private LineFitting2() {}
+	private LineFitter2() {}
 	
 	/**
 	 * Finds the line that best fits a point set.

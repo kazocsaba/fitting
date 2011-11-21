@@ -10,22 +10,22 @@ import java.util.List;
  * 2D line fitting algorithm using principal component analysis.
  * @author Kazó Csaba
  */
-public class LineFitter2 {
+public class LineFitter {
 	/** Threshold value used for floating-point equality tests. */
 	private static final double EPS=1e-8;
 	
 	/** Private constructor to prevent instantiation. */
-	private LineFitter2() {}
+	private LineFitter() {}
 	
 	/**
-	 * Finds the line that best fits a point set.
+	 * Finds the 2D line that best fits a point set.
 	 * @param points the input point set
 	 * @return the line
 	 * @throws DegenerateCaseException if the fitting could not be performed,
 	 * either because there are less than 2 points or they are in a degenerate
 	 * composition
 	 */
-	public static Line2 fit(List<? extends Vector2> points) throws DegenerateCaseException {
+	public static Line2 fit2(List<? extends Vector2> points) throws DegenerateCaseException {
 		/*
 		 * This algorithm first computes the centroid of the point set,
 		 * and then transforms all points so that the centroid of the

@@ -25,7 +25,7 @@ You can also browse the [online javadoc](http://kazocsaba.github.com/fitting/api
 Features
 --------
 
-LineFitter: finds the 2D line containing a set of points.
+LineFitter: finds the 2D/3D line containing a set of points.
 
 PlaneFitter: finds the 3D plane containing a set of points.
 

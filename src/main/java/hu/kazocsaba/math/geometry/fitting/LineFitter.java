@@ -2,8 +2,12 @@ package hu.kazocsaba.math.geometry.fitting;
 
 import hu.kazocsaba.math.geometry.DegenerateCaseException;
 import hu.kazocsaba.math.geometry.Line2;
+import hu.kazocsaba.math.geometry.Line3;
+import hu.kazocsaba.math.matrix.EigenDecomposition;
+import hu.kazocsaba.math.matrix.Matrix3;
 import hu.kazocsaba.math.matrix.MatrixFactory;
 import hu.kazocsaba.math.matrix.Vector2;
+import hu.kazocsaba.math.matrix.Vector3;
 import java.util.List;
 
 /**
@@ -109,5 +113,48 @@ public class LineFitter {
 			throw new DegenerateCaseException("No principal direction in line set");
 		}
 		return Line2.createFromDir(center, result);
+	}
+	/**
+	 * Finds the 3D line that best fits a point set.
+	 * @param points the input point set
+	 * @return the line
+	 * @throws DegenerateCaseException if the fitting could not be performed,
+	 * either because there are less than 2 points or they are in a degenerate
+	 * composition
+	 */
+	public static Line3 fit3(List<? extends Vector3> points) throws DegenerateCaseException {
+		/*
+		 * The approach is the same as in the 2D case, only now we don't have a simple solution to the eigen problem.
+		 * This way closely resembles the plane fitting task.
+		 */
+		if (points.size()<2)
+			throw new DegenerateCaseException("Not enough points, at least 2 are needed for line fitting");
+		
+		Vector3 center=MatrixFactory.createVector3();
+		for (Vector3 p: points) center.add(p);
+		center.scale(1.0/points.size());
+		
+		Matrix3 ATA=MatrixFactory.createMatrix3();
+		
+		for (Vector3 p: points) {
+			double x=p.getX()-center.getX();
+			double y=p.getY()-center.getY();
+			double z=p.getZ()-center.getZ();
+			ATA.setQuick(0, 0, ATA.getQuick(0, 0)+x*x);
+			ATA.setQuick(0, 1, ATA.getQuick(0, 1)+x*y);
+			ATA.setQuick(0, 2, ATA.getQuick(0, 2)+x*z);
+			ATA.setQuick(1, 1, ATA.getQuick(1, 1)+y*y);
+			ATA.setQuick(1, 2, ATA.getQuick(1, 2)+y*z);
+			ATA.setQuick(2, 2, ATA.getQuick(2, 2)+z*z);
+		}
+		ATA.setQuick(1, 0, ATA.getQuick(0, 1));
+		ATA.setQuick(2, 0, ATA.getQuick(0, 2));
+		ATA.setQuick(2, 1, ATA.getQuick(1, 2));
+		EigenDecomposition eig = ATA.eig();
+		if (eig.getEigenvalue(0)<EPS)
+			throw new DegenerateCaseException("Points are at the same position, cannot fit line");
+		if (eig.getEigenvalue(1)>eig.getEigenvalue(0)-EPS)
+			throw new DegenerateCaseException("The two main directions are equally strong, line is ambiguous");
+		return Line3.createFromDir(center, (Vector3) eig.getEigenvector(0));
 	}
 }
